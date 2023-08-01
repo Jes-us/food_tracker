@@ -1,4 +1,19 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'theme.dart';
+import 'package:provider/provider.dart';
+
+ThemeMode customizedThemeMode = ThemeMode.dark;
+
+var kColorScheme = ColorScheme.fromSeed(
+  seedColor: const Color.fromARGB(255, 96, 59, 181),
+);
+
+var kDarkColorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: const Color.fromARGB(255, 5, 99, 125),
+);
 
 void main() {
   runApp(const MyApp());
@@ -10,35 +25,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePage(),
-    );
+    return ChangeNotifierProvider(
+        create: (context) => Manage(customizedThemeMode),
+        child: Consumer<Manage>(
+          builder: (context, Manage themenotifier, child) {
+            return MaterialApp(
+              theme: ThemeData(
+                  colorScheme: kColorScheme,
+                  appBarTheme: AppBarTheme(color: Colors.blueAccent)),
+              darkTheme: ThemeData(
+                colorScheme: kDarkColorScheme,
+              ),
+              themeMode: themenotifier.getActualTheme(),
+              home: HomePage(),
+            );
+          },
+        ));
   }
 }
 
+// ignore: use_key_in_widget_constructors
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -46,8 +53,61 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.cyanAccent,
+    return Consumer<Manage>(
+      builder: (context, Manage themeNotifier, child) {
+        return Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    themeNotifier.changeTheme(customizedThemeMode);
+                  },
+                  icon: Icon(Icons.dark_mode_rounded)),
+            ],
+            title: Text('App de prueba para provider'),
+          ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      color: Theme.of(context).cardColor,
+                    ),
+                  )),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Container(
+                        width: 10,
+                        height: 20,
+                        color: Theme.of(context).cardColor,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Container(
+                        width: 10,
+                        height: 20,
+                        color: Theme.of(context).cardColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
