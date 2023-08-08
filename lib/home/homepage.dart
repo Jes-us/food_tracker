@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_tracker/home/homepage_model.dart';
 import 'package:provider/provider.dart';
 import 'package:food_tracker/theme.dart';
 import 'package:food_tracker/utilities/barcode_reader.dart';
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     themeNotifier.changeTheme(ThemeMode.dark);
                   },
-                  icon: Icon(Icons.dark_mode_rounded)),
+                  icon: const Icon(Icons.dark_mode_rounded)),
             ],
             title: const Text('App de prueba para provider'),
           ),
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                   itemCount: textos.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      padding: EdgeInsets.all(50),
+                      padding: const EdgeInsets.all(50),
                       height: 80,
                       color: Theme.of(context).cardColor,
                       child: Center(
@@ -63,8 +64,11 @@ class _HomePageState extends State<HomePage> {
                     );
                   }),
             ),
-            FloatingActionButton(onPressed: () {
-              scanBarcode = bCodeReader.getBarCode();
+            FloatingActionButton(onPressed: () async {
+              //scanBarcode = bCodeReader.getBarCode();
+
+              HomePageModel service = HomePageModel('894700010335');
+              var detalle = await service.getProductInfor();
             }),
           ]),
           //  ],
