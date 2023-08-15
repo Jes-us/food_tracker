@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:food_tracker/home/homepage_model.dart';
 import 'package:provider/provider.dart';
 import 'package:food_tracker/theme.dart';
 import 'package:food_tracker/utilities/barcode_reader.dart';
+import 'package:food_tracker/view_model/product_view_model.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String scanBarcode = 'Unknown';
+    ProductViewModel productViewModel = context.watch<ProductViewModel>();
+    //String scanBarcode = 'Unknown';
     BarCode bCodeReader = BarCode();
 
     List<String> textos = [
-      'Texto1',
+      'Text 1',
       'Texto 2',
       'Texto 3',
       'Texto1',
@@ -65,10 +61,16 @@ class _HomePageState extends State<HomePage> {
                   }),
             ),
             FloatingActionButton(onPressed: () async {
-              //scanBarcode = bCodeReader.getBarCode();
+              String scanBarcode = await bCodeReader.scanBarcodeNormal();
 
-              HomePageModel service = HomePageModel('894700010335');
-              var detalle = await service.getProductInfor();
+              print('codigo depies de el scaneo $scanBarcode');
+              productViewModel.setUpcNumber(scanBarcode);
+              productViewModel.getProducts();
+              String codigo =
+                  productViewModel.productModel.items[0].upc.toString();
+              print('imprimir $codigo');
+
+              //print(detalle);
             }),
           ]),
           //  ],

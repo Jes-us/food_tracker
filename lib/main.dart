@@ -5,6 +5,7 @@ import 'theme.dart';
 import 'package:provider/provider.dart';
 import 'home/homepage.dart';
 //import 'utilities/barcode_reader.dart';
+import 'package:food_tracker/view_model/product_view_model.dart';
 
 ThemeMode customizedThemeMode = ThemeMode.dark;
 
@@ -18,8 +19,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => Manage(customizedThemeMode),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => Manage(customizedThemeMode),
+          ),
+          ChangeNotifierProvider(create: (_) => ProductViewModel()),
+        ],
         child: Consumer<Manage>(
           builder: (context, Manage themenotifier, child) {
             return MaterialApp(

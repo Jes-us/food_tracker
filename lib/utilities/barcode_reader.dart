@@ -1,20 +1,19 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter/services.dart';
 
 class BarCode {
-  String _scanBarcode = 'Unknown';
+  String scanBarcode = 'Unknown';
 
-  Future<void> scanBarcodeNormal() async {
-    String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
+  Future<String> scanBarcodeNormal() async {
     try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      //print('codigo de barras');
-      //print(barcodeScanRes);
-      _scanBarcode = barcodeScanRes;
-    } on PlatformException {
-      barcodeScanRes = 'Failed to get platform version.';
+      scanBarcode = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', false, ScanMode.BARCODE);
+
+      print('codigo de barras');
+      print(scanBarcode);
+      //_scanBarcode = barcodeScanRes;
+      return scanBarcode;
+    } catch (e) {
+      return scanBarcode = e.toString();
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -22,8 +21,9 @@ class BarCode {
     // setState to update our non-existent appearance.
   }
 
-  String getBarCode() {
+  Future<String> getBarCode() async {
     scanBarcodeNormal();
-    return _scanBarcode;
+    String barCode = scanBarcode;
+    return barCode;
   }
 }

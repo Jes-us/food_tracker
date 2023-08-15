@@ -1,0 +1,15 @@
+//Success code
+const SUCCESS = 200;
+
+//Failures code
+const NOT_FOUND = 404;
+const UNAUTHORIZED = 401;
+const BAD_REQUEST = 400;
+const FORBIDDEN = 403;
+const TO_MANY_REQUEST = 429;
+const INTERNAL_SERVER_ERROR = 500;
+const BAD_GATEWAY = 502;
+const SERVICE_UNAVAILABLE = 503;
+const GATEWAY_TIMEOUT = 504;
+const NOT_IMPLEMENTED = 501;
+const UNDEFINED = -1;
