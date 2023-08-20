@@ -35,7 +35,16 @@ class MyApp extends StatelessWidget {
               ),
               darkTheme: ThemeData(
                 colorScheme: kDarkColorScheme,
-                useMaterial3: false,
+                useMaterial3: true,
+                filledButtonTheme: FilledButtonThemeData(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                      return Theme.of(context).colorScheme.primary;
+                      // Defer to the widget's default.
+                    }),
+                  ),
+                ),
               ),
               themeMode: themenotifier.getActualTheme(),
               home: HomePage(),

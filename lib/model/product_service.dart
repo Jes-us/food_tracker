@@ -3,9 +3,9 @@ import 'package:food_tracker/model/product_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:food_tracker/constants.dart';
 
-class prodructService {
+class ProdructService {
   String upcNumber;
-  prodructService(this.upcNumber);
+  ProdructService(this.upcNumber);
 
   Future<Object> getProductInfor() async {
     try {
@@ -14,16 +14,16 @@ class prodructService {
 
       var response = await http.get(url);
 
-      if (SUCCESS == response.statusCode) {
+      if (ksuccess == response.statusCode) {
         return Success(
-            code: SUCCESS, response: productModelFromJson(response.body));
+            code: ksuccess, response: productModelFromJson(response.body));
       }
-      if (SUCCESS != response.statusCode) {
+      if (ksuccess != response.statusCode) {
         return Failure(
             errorCode: response.statusCode, errorResponse: 'Invalid request');
       }
     } catch (e) {
-      return Failure(errorCode: UNDEFINED, errorResponse: 'Unknown error');
+      return Failure(errorCode: kundifines, errorResponse: 'Unknown error');
     }
 
     return Failure(errorCode: 0, errorResponse: 'Invalid request');

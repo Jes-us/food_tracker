@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_tracker/prodruct_card.dart';
 import 'package:provider/provider.dart';
 import 'package:food_tracker/theme.dart';
 import 'package:food_tracker/utilities/barcode_reader.dart';
 import 'package:food_tracker/view_model/product_view_model.dart';
+import 'package:food_tracker/constants.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -23,10 +25,10 @@ class HomePage extends StatelessWidget {
     return Consumer<Manage>(
       builder: (context, Manage themeNotifier, child) {
         return Scaffold(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.onSecondary,
           appBar: AppBar(
             elevation: 3,
-            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             actions: [
               IconButton(
                   onPressed: () {
@@ -48,7 +50,7 @@ class HomePage extends StatelessWidget {
                     return Container(
                       padding: const EdgeInsets.all(50),
                       height: 80,
-                      color: Theme.of(context).cardColor,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       child: Center(
                         child: Text(
                           textos[index],
@@ -60,18 +62,39 @@ class HomePage extends StatelessWidget {
                     );
                   }),
             ),
-            FloatingActionButton(onPressed: () async {
-              String scanBarcode = await bCodeReader.scanBarcodeNormal();
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              IconButton.filled(
+                  padding: EdgeInsets.all(20),
+                  icon: const Icon(
+                    Icons.add,
+                    size: 30.0,
+                    weight: 20.0,
+                  ),
+                  onPressed: () async {
+                    // String scanBarcode = await bCodeReader.scanBarcodeNormal();
+                    String scanBarcode = '034000405688';
+                    productViewModel.setUpcNumber(scanBarcode);
+                    productViewModel.getProducts();
+                    String codigo =
+                        productViewModel.productModel.items[0].upc.toString();
+                    print('imprimir $codigo');
+                    if (productViewModel.productModel.items.length != 0) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ProductCard(productViewModel: productViewModel),
+                        ),
+                      );
+                    }
 
-              print('codigo depies de el scaneo $scanBarcode');
-              productViewModel.setUpcNumber(scanBarcode);
-              productViewModel.getProducts();
-              String codigo =
-                  productViewModel.productModel.items[0].upc.toString();
-              print('imprimir $codigo');
-
-              //print(detalle);
-            }),
+                    //print(detalle);
+                  }),
+              SizedBox(
+                width: 20,
+              )
+            ]),
+            kgap20
           ]),
           //  ],
           // ),
