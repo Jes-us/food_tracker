@@ -2,6 +2,7 @@ import 'package:food_tracker/model/api_status.dart';
 import 'package:food_tracker/model/product_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:food_tracker/constants.dart';
+import 'package:food_tracker/model/error_service.dart';
 
 class ProdructService {
   String upcNumber;
@@ -20,12 +21,13 @@ class ProdructService {
       }
       if (ksuccess != response.statusCode) {
         return Failure(
-            errorCode: response.statusCode, errorResponse: 'Invalid request');
+            errorCode: response.statusCode,
+            errorResponse: errorServiceModelFromJson(response.body).message);
       }
     } catch (e) {
-      return Failure(errorCode: kundifines, errorResponse: 'Unknown error');
+      return Failure(errorCode: kundifines, errorResponse: e.toString());
     }
 
-    return Failure(errorCode: 0, errorResponse: 'Invalid request');
+    return Failure(errorCode: 0, errorResponse: 'Unknown error');
   }
 }

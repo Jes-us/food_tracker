@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                         (Set<MaterialState> states) {
-                      return Theme.of(context).colorScheme.primary;
+                      return Theme.of(context).colorScheme.secondary;
                       // Defer to the widget's default.
                     }),
                   ),

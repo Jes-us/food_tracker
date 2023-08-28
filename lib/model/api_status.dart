@@ -7,6 +7,6 @@ class Success {
 
 class Failure {
   int errorCode;
-  Object errorResponse;
+  String? errorResponse;
   Failure({required this.errorCode, required this.errorResponse});
 }

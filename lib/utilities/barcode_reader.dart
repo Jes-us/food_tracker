@@ -6,7 +6,7 @@ class BarCode {
   Future<String> scanBarcodeNormal() async {
     try {
       scanBarcode = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', false, ScanMode.BARCODE);
+          '#FFFFFF', 'Cancel', false, ScanMode.BARCODE);
 
       print('codigo de barras');
       print(scanBarcode);

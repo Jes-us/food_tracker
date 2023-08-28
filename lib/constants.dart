@@ -1,6 +1,5 @@
 //Success code
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 const ksuccess = 200;
 
@@ -17,7 +16,7 @@ const kgatewayTimeOut = 504;
 const knotImplenmented = 501;
 const kundifines = -1;
 
-//Design
+const KserErrorCode = 'OK';
 const kgap20 = SizedBox(
   height: 20,
 );
