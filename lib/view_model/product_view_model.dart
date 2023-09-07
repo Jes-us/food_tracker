@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_tracker/model/product_service.dart';
+import 'package:food_tracker/model/product_model/product_service.dart';
 import 'package:food_tracker/model/api_status.dart';
-import 'package:food_tracker/model/product_model.dart';
+import 'package:food_tracker/model/product_model/product_model.dart';
 import 'package:food_tracker/model/user_error.dart';
 import 'package:food_tracker/constants.dart';
 

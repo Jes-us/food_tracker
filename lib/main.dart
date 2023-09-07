@@ -3,13 +3,16 @@
 import 'package:flutter/material.dart';
 import 'theme.dart';
 import 'package:provider/provider.dart';
-import 'home/homepage.dart';
-//import 'utilities/barcode_reader.dart';
+import 'view/homepage.dart';
 import 'package:food_tracker/view_model/product_view_model.dart';
+import 'package:food_tracker/view_model/prodf_view_model.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 ThemeMode customizedThemeMode = ThemeMode.dark;
 
-void main() {
+void main() async {
+  sqfliteFfiInit();
+  // databaseFactory = databaseFactoryFfi;
   runApp(const MyApp());
 }
 
@@ -25,6 +28,7 @@ class MyApp extends StatelessWidget {
             create: (context) => Manage(customizedThemeMode),
           ),
           ChangeNotifierProvider(create: (_) => ProductViewModel()),
+          ChangeNotifierProvider(create: (_) => ProdfProvider())
         ],
         child: Consumer<Manage>(
           builder: (context, Manage themenotifier, child) {
@@ -32,9 +36,13 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 colorScheme: kColorScheme,
                 useMaterial3: false,
+                textTheme:
+                    TextTheme(headlineMedium: TextStyle(color: Colors.black)),
               ),
               darkTheme: ThemeData(
                 colorScheme: kDarkColorScheme,
+                textTheme:
+                    TextTheme(headlineMedium: TextStyle(color: Colors.white)),
                 useMaterial3: true,
                 filledButtonTheme: FilledButtonThemeData(
                   style: ButtonStyle(
