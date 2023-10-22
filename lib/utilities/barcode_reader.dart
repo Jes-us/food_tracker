@@ -1,7 +1,7 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class BarCode {
-  String scanBarcode = 'Unknown';
+  String scanBarcode = '';
 
   Future<String> scanBarcodeNormal() async {
     try {

@@ -4,23 +4,23 @@
 
 import 'dart:convert';
 
-errorServiceModel errorServiceModelFromJson(String str) =>
-    errorServiceModel.fromJson(json.decode(str));
+ErrorServiceModel errorServiceModelFromJson(String str) =>
+    ErrorServiceModel.fromJson(json.decode(str));
 
-String errorServiceModelToJson(errorServiceModel data) =>
+String errorServiceModelToJson(ErrorServiceModel data) =>
     json.encode(data.toJson());
 
-class errorServiceModel {
+class ErrorServiceModel {
   String? code;
   String? message;
 
-  errorServiceModel({
+  ErrorServiceModel({
     this.code,
     this.message,
   });
 
-  factory errorServiceModel.fromJson(Map<String, dynamic> json) =>
-      errorServiceModel(
+  factory ErrorServiceModel.fromJson(Map<String, dynamic> json) =>
+      ErrorServiceModel(
         code: json["code"],
         message: json["message"],
       );

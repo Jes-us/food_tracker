@@ -11,14 +11,27 @@ class ProdructService {
   Future<Object> getProductInfor() async {
     try {
       Uri url = Uri.https(
-          'api.upcitemdb.com', '/prod/trial/lookup', {'upc': '$upcNumber'});
+          'api.upcitemdb.com', '/prod/trial/lookup', {'upc': upcNumber});
 
       var response = await http.get(url);
 
       if (ksuccess == response.statusCode) {
-        return Success(
-            code: ksuccess, response: productModelFromJson(response.body));
+        int errorCode;
+        String? errorMessage;
+
+        var totalRecords = productModelFromJson(response.body).total.toString();
+
+        if (totalRecords == '0') {
+          errorCode = 1;
+          errorMessage = 'Producto no encontrado';
+
+          return Failure(errorCode: errorCode, errorResponse: errorMessage);
+        } else {
+          return Success(
+              code: ksuccess, response: productModelFromJson(response.body));
+        }
       }
+
       if (ksuccess != response.statusCode) {
         return Failure(
             errorCode: response.statusCode,

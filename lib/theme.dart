@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 
+const Color _colorSeed = Color.fromARGB(215, 252, 137, 7);
+
+/* ColorScheme  =
+    fromSeed(seedColor: _colorSeed, brightness: Brightness.light);
+
+ColorScheme kDarkColorScheme =
+    fromSeed(seedColor: _colorSeed, brightness: Brightness.dark);
+ */
+
 const kColorScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0xFFFFFFFF), //color
-  onPrimary: Color(0xFF000000), //color
-  primaryContainer: Color(0xFFC7cacf), //color
-  onPrimaryContainer: Color(0xFF001F24),
-  secondary: Color(0xFFe62124), //color
-  onSecondary: Color(0xFFe8eaef), //color
+  primary: Color(0xFfF05833), //color agregado
+  onPrimary: Color(0xFFFFFFFF), //color agregadp
+  primaryContainer: Color(0xFF0e4d6c), //color agregado
+  onPrimaryContainer: Color(0xFFFFFFFF), // agregado
+  secondary: Color(0xFFF8FDFF), //color
+  onSecondary: Color(0xFF0e4d6c), //color
   secondaryContainer: Color(0xFFCFE5FF),
   onSecondaryContainer: Color(0xFF001D34),
   tertiary: Color(0xFFC00012),
@@ -20,8 +29,8 @@ const kColorScheme = ColorScheme(
   onErrorContainer: Color(0xFF410002),
   background: Color(0xFFF8FDFF),
   onBackground: Color(0xFF001F25),
-  surface: Color(0xFFF8FDFF),
-  onSurface: Color(0xFF001F25),
+  surface: Color(0xFFe9ddc7), //agregado
+  onSurface: Color(0xFF2c4653), //agregado
   surfaceVariant: Color(0xFFDBE4E6),
   onSurfaceVariant: Color(0xFF3F484A),
   outline: Color(0xFF6F797A),
@@ -36,12 +45,12 @@ const kColorScheme = ColorScheme(
 
 const kDarkColorScheme = ColorScheme(
   brightness: Brightness.dark,
-  primary: Color(0xFF000000),
-  onPrimary: Color(0xFFffffff), //C7cacf
-  primaryContainer: Color(0xFF3c3c3c),
-  onPrimaryContainer: Color(0xFF97F0FF),
-  secondary: Color(0xFFe62124),
-  onSecondary: Color(0xFF003355),
+  primary: Color(0xFfF05833), //color agregado
+  onPrimary: Color(0xFFFFFFFF), //color agregadp
+  primaryContainer: Color(0xFF0e4d6c), //color agregado
+  onPrimaryContainer: Color(0xFFe9ddc7),
+  secondary: Color(0xFF0e4d6c),
+  onSecondary: Color(0xFFF8FDFF),
   secondaryContainer: Color(0xFF004A78),
   onSecondaryContainer: Color(0xFFCFE5FF),
   tertiary: Color(0xFFFFB4AB),
@@ -52,10 +61,10 @@ const kDarkColorScheme = ColorScheme(
   errorContainer: Color(0xFF93000A),
   onError: Color(0xFF690005),
   onErrorContainer: Color(0xFFFFDAD6),
-  background: Color(0xFF001F25),
+  background: Color(0xFF0e4d6c), //Color(0xFF2c4653), // agrefgado
   onBackground: Color(0xFFA6EEFF),
-  surface: Color(0xFF001F25),
-  onSurface: Color(0xFFA6EEFF),
+  surface: Color(0xFF2c4653), //agregado
+  onSurface: Color(0xFFe9ddc7), //agregadp
   surfaceVariant: Color(0xFF3F484A),
   onSurfaceVariant: Color(0xFFBFC8CA),
   outline: Color(0xFF899294),
@@ -68,10 +77,56 @@ const kDarkColorScheme = ColorScheme(
   scrim: Color(0xFF000000),
 );
 
-/*ColorScheme.fromSeed(
-  brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 5, 99, 125),
-);*/
+fromSeed({
+  required Color seedColor,
+  required brightness,
+  Color? primary,
+  Color? onPrimary,
+  Color? primaryContainer,
+  Color? onPrimaryContainer,
+  Color? secondary,
+  Color? onSecondary,
+  Color? secondaryContainer,
+  Color? onSecondaryContainer,
+  Color? tertiary,
+  Color? onTertiary,
+  Color? tertiaryContainer,
+  Color? onTertiaryContainer,
+  Color? error,
+  Color? onError,
+  Color? errorContainer,
+  Color? onErrorContainer,
+  Color? outline,
+  Color? outlineVariant,
+  Color? background,
+  Color? onBackground,
+  Color? surface,
+  Color? onSurface,
+  Color? surfaceVariant,
+  Color? onSurfaceVariant,
+  Color? inverseSurface,
+  Color? onInverseSurface,
+  Color? inversePrimary,
+  Color? shadow,
+  Color? scrim,
+  Color? surfaceTint,
+}) {
+  final ColorScheme scheme;
+  switch (brightness) {
+    case Brightness.light:
+      scheme = ColorScheme.fromSeed(
+        brightness: Brightness.light,
+        seedColor: seedColor,
+      );
+      return scheme;
+    case Brightness.dark:
+      scheme = ColorScheme.fromSeed(
+        brightness: Brightness.dark,
+        seedColor: seedColor,
+      );
+      return scheme;
+  }
+}
 
 class Manage extends ChangeNotifier {
   Manage(this.actualTheme);

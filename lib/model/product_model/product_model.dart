@@ -3,6 +3,7 @@
 //     final ProductModel = ProductModelFromJson(jsonString);
 
 import 'dart:convert';
+import 'dart:ffi';
 
 ProductModel productModelFromJson(String str) =>
     ProductModel.fromJson(json.decode(str));
@@ -119,7 +120,7 @@ class Offer {
   String title;
   String currency;
   String listPrice;
-  double price;
+  String price;
   String shipping;
   String condition;
   String availability;
@@ -146,7 +147,7 @@ class Offer {
         title: json["title"],
         currency: json["currency"],
         listPrice: json["list_price"],
-        price: json["price"]?.toDouble(),
+        price: json["price"],
         shipping: json["shipping"],
         condition: json["condition"],
         availability: json["availability"],

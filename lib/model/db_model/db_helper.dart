@@ -19,6 +19,8 @@ class Databasehelper {
   static const columnImage = 'image';
   static const columnDescription = 'description';
   static const columnTittle = 'tittle';
+  static const productModel = 'productmodel';
+  static const expirationDate = 'expirationdate';
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -41,7 +43,7 @@ class Databasehelper {
   // SQL code to create the database table
   Future _onCreate(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE $table ($columnId INTEGER PRIMARY KEY AUTOINCREMENT ,$columnUpc  TEXT,$columnImage TEXT ,$columnBrand TEXT ,$columnDescription TEXT ,$columnTittle TEXT)');
+        'CREATE TABLE $table ($columnId INTEGER PRIMARY KEY AUTOINCREMENT ,$productModel TEXT,$expirationDate TEXT,$columnUpc  TEXT,$columnImage TEXT ,$columnBrand TEXT ,$columnDescription TEXT ,$columnTittle TEXT)');
   }
 
   // Helper methods
@@ -50,24 +52,24 @@ class Databasehelper {
   // and the value is the column value. The return value is the id of the
   // inserted row.
   Future<int> insert(Prodf row) async {
-    final _db = await database;
-    return await _db.insert(table, row.toJson());
+    final db = await database;
+    return await db.insert(table, row.toJson());
   }
 
 // All of the rows are returned as a list of maps, where each map is
   // a key-value list of columns.
 
   Future<List<Prodf>> queryAllRows() async {
-    final _db = await database;
-    List<Map<String, Object?>> respDB = await _db.query(table);
+    final db = await database;
+    List<Map<String, Object?>> respDB = await db.query(table);
     return respDB.map((e) => Prodf.fromJson(e)).toList();
   }
 
   // All of the methods (insert, query, update, delete) can also be done using
   // raw SQL commands. This method uses a raw query to give the row count.
   Future<int> queryRowCount() async {
-    final _db = await database;
-    final results = await _db.rawQuery('SELECT COUNT(*) FROM $table');
+    final db = await database;
+    final results = await db.rawQuery('SELECT COUNT(*) FROM $table');
     return Sqflite.firstIntValue(results) ?? 0;
   }
 
@@ -75,8 +77,8 @@ class Databasehelper {
   // column values will be used to update the row.
   Future<int> update(Map<String, dynamic> row) async {
     int id = row[columnId];
-    final _db = await database;
-    return await _db.update(
+    final db = await database;
+    return await db.update(
       table,
       row,
       where: '$columnId = ?',
@@ -87,8 +89,8 @@ class Databasehelper {
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(int? id) async {
-    final _db = await database;
-    return await _db.delete(
+    final db = await database;
+    return await db.delete(
       table,
       where: '$columnId = ?',
       whereArgs: [id],

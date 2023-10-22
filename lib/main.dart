@@ -28,33 +28,34 @@ class MyApp extends StatelessWidget {
             create: (context) => Manage(customizedThemeMode),
           ),
           ChangeNotifierProvider(create: (_) => ProductViewModel()),
-          ChangeNotifierProvider(create: (_) => ProdfProvider())
         ],
         child: Consumer<Manage>(
           builder: (context, Manage themenotifier, child) {
             return MaterialApp(
+              themeMode: themenotifier.getActualTheme(),
               theme: ThemeData(
-                colorScheme: kColorScheme,
-                useMaterial3: false,
-                textTheme:
-                    TextTheme(headlineMedium: TextStyle(color: Colors.black)),
-              ),
+                  colorScheme: kColorScheme,
+                  useMaterial3: true,
+                  floatingActionButtonTheme: FloatingActionButtonThemeData(
+                      backgroundColor: Theme.of(context).colorScheme.primary),
+                  filledButtonTheme: FilledButtonThemeData(style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.resolveWith((states) {
+                      return Theme.of(context).colorScheme.onPrimary;
+                    }),
+                  )),
+                  dialogBackgroundColor: Theme.of(context).colorScheme.surface),
               darkTheme: ThemeData(
                 colorScheme: kDarkColorScheme,
-                textTheme:
-                    TextTheme(headlineMedium: TextStyle(color: Colors.white)),
                 useMaterial3: true,
-                filledButtonTheme: FilledButtonThemeData(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                      return Theme.of(context).colorScheme.secondary;
-                      // Defer to the widget's default.
-                    }),
-                  ),
-                ),
+                floatingActionButtonTheme: FloatingActionButtonThemeData(
+                    backgroundColor: Theme.of(context).colorScheme.primary),
+                filledButtonTheme: FilledButtonThemeData(style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                    return Theme.of(context).colorScheme.onPrimary;
+                  }),
+                )),
               ),
-              themeMode: themenotifier.getActualTheme(),
               home: HomePage(),
             );
           },

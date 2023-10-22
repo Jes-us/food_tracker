@@ -16,7 +16,7 @@ const kgatewayTimeOut = 504;
 const knotImplenmented = 501;
 const kundifines = -1;
 
-const KserErrorCode = 'OK';
+const kserErrorCode = 'OK';
 const kgap20 = SizedBox(
   height: 20,
 );

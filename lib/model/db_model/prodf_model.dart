@@ -11,6 +11,8 @@ class Prodf {
   String image;
   String description;
   String tittle;
+  String productmodel;
+  String expirationdate;
 
   Prodf(
       {this.id,
@@ -18,7 +20,9 @@ class Prodf {
       required this.brand,
       required this.image,
       required this.description,
-      required this.tittle});
+      required this.tittle,
+      required this.productmodel,
+      required this.expirationdate});
 
   factory Prodf.fromJson(Map<String, dynamic> json) => Prodf(
       id: json["id"],
@@ -26,7 +30,9 @@ class Prodf {
       brand: json["brand"],
       image: json["image"],
       description: json["description"],
-      tittle: json["tittle"]);
+      tittle: json["tittle"],
+      productmodel: json["productmodel"],
+      expirationdate: json["expirationdate"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -35,5 +41,7 @@ class Prodf {
         "image": image,
         "description": description,
         "tittle": tittle,
+        "productmodel": productmodel,
+        "expirationdate": expirationdate
       };
 }
