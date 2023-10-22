@@ -120,7 +120,7 @@ class Offer {
   String title;
   String currency;
   String listPrice;
-  String price;
+  double price;
   String shipping;
   String condition;
   String availability;
@@ -146,8 +146,8 @@ class Offer {
         domain: json["domain"],
         title: json["title"],
         currency: json["currency"],
-        listPrice: json["list_price"],
-        price: json["price"],
+        listPrice: json["list_price"].toString(),
+        price: json["price"]?.toDouble(),
         shipping: json["shipping"],
         condition: json["condition"],
         availability: json["availability"],
