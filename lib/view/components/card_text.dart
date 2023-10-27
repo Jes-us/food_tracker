@@ -15,47 +15,80 @@ class CardText extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0), color: Colors.transparent),
       child: Center(
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          const Spacer(),
-          Text(
-            'Consumir ante',
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onSecondary, fontSize: 8),
-          ),
-          Row(
+        child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(children: [
-                Text(
-                  DateTime.parse(text).day.toString(),
-                  style: TextStyle(
+              Flexible(
+                flex: 1,
+                child: FittedBox(
+                  child: Text(
+                    'Better before',
+                    style: TextStyle(
                       color: Theme.of(context).colorScheme.onSecondary,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-                Text(
-                  _getMonth(DateTime.parse(text).month.toString()),
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold),
+              ),
+              Flexible(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      flex: 2,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: FittedBox(
+                                child: Text(
+                                  DateTime.parse(text).day.toString(),
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: FittedBox(
+                                child: Text(
+                                  _getMonth(
+                                      DateTime.parse(text).month.toString()),
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ]),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: FittedBox(
+                        child: RotatedBox(
+                          quarterTurns: 3,
+                          child: Text(
+                            DateTime.parse(text).year.toString(),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ]),
-              RotatedBox(
-                quarterTurns: 3,
-                child: Text(
-                  DateTime.parse(text).year.toString(),
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold),
-                ),
-              )
-            ],
-          ),
-          const Spacer()
-        ]),
+              ),
+            ]),
       ),
     );
   }

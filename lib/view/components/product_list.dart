@@ -98,7 +98,6 @@ class ProductList extends StatelessWidget {
                                     textos.prodList[index]['daystoexpire']
                                         .toString(),
                                     maxLines: 1,
-                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context)

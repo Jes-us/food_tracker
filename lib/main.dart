@@ -36,25 +36,28 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                   colorScheme: kColorScheme,
                   useMaterial3: true,
-                  floatingActionButtonTheme: FloatingActionButtonThemeData(
-                      backgroundColor: Theme.of(context).colorScheme.primary),
-                  filledButtonTheme: FilledButtonThemeData(style: ButtonStyle(
+                  filledButtonTheme: FilledButtonThemeData(
+                      style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.resolveWith((states) {
-                      return Theme.of(context).colorScheme.onPrimary;
+                      return kColorScheme.onPrimary;
+                    }),
+                    textStyle: MaterialStateProperty.resolveWith((states) {
+                      return TextStyle(color: kDarkColorScheme.onPrimary);
                     }),
                   )),
                   dialogBackgroundColor: Theme.of(context).colorScheme.surface),
               darkTheme: ThemeData(
                 colorScheme: kDarkColorScheme,
                 useMaterial3: true,
-                floatingActionButtonTheme: FloatingActionButtonThemeData(
-                    backgroundColor: Theme.of(context).colorScheme.primary),
-                filledButtonTheme: FilledButtonThemeData(style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith((states) {
-                    return Theme.of(context).colorScheme.onPrimary;
-                  }),
-                )),
+                filledButtonTheme: FilledButtonThemeData(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith((states) {
+                          return kDarkColorScheme.primary;
+                        }),
+                        textStyle: MaterialStateProperty.resolveWith((states) =>
+                            TextStyle(color: kDarkColorScheme.onPrimary)))),
               ),
               home: HomePage(),
             );

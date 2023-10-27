@@ -52,7 +52,7 @@ class Item {
   String category;
   String currency;
   int lowestRecordedPrice;
-  double highestRecordedPrice;
+  String highestRecordedPrice;
   List<String> images;
   List<Offer> offers;
 
@@ -89,7 +89,7 @@ class Item {
         category: json["category"],
         currency: json["currency"],
         lowestRecordedPrice: json["lowest_recorded_price"],
-        highestRecordedPrice: json["highest_recorded_price"]?.toDouble(),
+        highestRecordedPrice: json["highest_recorded_price"],
         images: List<String>.from(json["images"].map((x) => x)),
         offers: List<Offer>.from(json["offers"].map((x) => Offer.fromJson(x))),
       );
@@ -120,7 +120,7 @@ class Offer {
   String title;
   String currency;
   String listPrice;
-  double price;
+  String price;
   String shipping;
   String condition;
   String availability;
@@ -147,7 +147,7 @@ class Offer {
         title: json["title"],
         currency: json["currency"],
         listPrice: json["list_price"].toString(),
-        price: json["price"]?.toDouble(),
+        price: json["price"].toString(),
         shipping: json["shipping"],
         condition: json["condition"],
         availability: json["availability"],

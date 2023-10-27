@@ -58,11 +58,12 @@ class HomePage extends StatelessWidget {
                 onPressed: () async {
                   scanBarcode = await bCodeReader.scanBarcodeNormal();
                   //scanBarcode = '034000405688';
-                  //scanBarcode = '028400071031';
-                  //scanBarcode = '028571000687';
+                  // scanBarcode = '028400071031';
+                  // scanBarcode = '028571000687';
                   //scanBarcode = '070272232027';
                   //scanBarcode = '7790895067532'; // Producto que no existe y devuelve 0
                   //scanBarcode = '0000000000000';
+                  //6068946450055 -- valor nulo
 
                   if (scanBarcode != '-1') {
                     await productViewModel.setUpcNumber(scanBarcode);
