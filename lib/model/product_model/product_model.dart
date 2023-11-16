@@ -3,7 +3,6 @@
 //     final ProductModel = ProductModelFromJson(jsonString);
 
 import 'dart:convert';
-import 'dart:ffi';
 
 ProductModel productModelFromJson(String str) =>
     ProductModel.fromJson(json.decode(str));
@@ -11,9 +10,9 @@ ProductModel productModelFromJson(String str) =>
 String productModelToJson(ProductModel data) => json.encode(data.toJson());
 
 class ProductModel {
-  String code;
-  int total;
-  int offset;
+  String? code;
+  int? total;
+  int? offset;
   List<Item> items;
 
   ProductModel({
@@ -39,21 +38,21 @@ class ProductModel {
 }
 
 class Item {
-  String ean;
-  String title;
-  String description;
-  String upc;
-  String brand;
-  String model;
-  String color;
-  String size;
-  String dimension;
-  String weight;
-  String category;
-  String currency;
-  int lowestRecordedPrice;
-  String highestRecordedPrice;
-  List<String> images;
+  String? ean;
+  String? title;
+  String? description;
+  String? upc;
+  String? brand;
+  String? model;
+  String? color;
+  String? size;
+  String? dimension;
+  String? weight;
+  String? category;
+  String? currency;
+  String? lowestRecordedPrice;
+  String? highestRecordedPrice;
+  List<String?> images;
   List<Offer> offers;
 
   Item({
@@ -88,8 +87,8 @@ class Item {
         weight: json["weight"],
         category: json["category"],
         currency: json["currency"],
-        lowestRecordedPrice: json["lowest_recorded_price"],
-        highestRecordedPrice: json["highest_recorded_price"],
+        lowestRecordedPrice: json["lowest_recorded_price"].toString(),
+        highestRecordedPrice: json["highest_recorded_price"].toString(),
         images: List<String>.from(json["images"].map((x) => x)),
         offers: List<Offer>.from(json["offers"].map((x) => Offer.fromJson(x))),
       );
@@ -115,17 +114,17 @@ class Item {
 }
 
 class Offer {
-  String merchant;
-  String domain;
-  String title;
-  String currency;
-  String listPrice;
-  String price;
-  String shipping;
-  String condition;
-  String availability;
-  String link;
-  int updatedT;
+  String? merchant;
+  String? domain;
+  String? title;
+  String? currency;
+  String? listPrice;
+  String? price;
+  String? shipping;
+  String? condition;
+  String? availability;
+  String? link;
+  String? updatedT;
 
   Offer({
     required this.merchant,
@@ -152,7 +151,7 @@ class Offer {
         condition: json["condition"],
         availability: json["availability"],
         link: json["link"],
-        updatedT: json["updated_t"],
+        updatedT: json["updated_t"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

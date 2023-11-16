@@ -5,14 +5,13 @@ import 'theme.dart';
 import 'package:provider/provider.dart';
 import 'view/homepage.dart';
 import 'package:food_tracker/view_model/product_view_model.dart';
-import 'package:food_tracker/view_model/prodf_view_model.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 ThemeMode customizedThemeMode = ThemeMode.dark;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   sqfliteFfiInit();
-  // databaseFactory = databaseFactoryFfi;
   runApp(const MyApp());
 }
 
@@ -27,37 +26,45 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) => Manage(customizedThemeMode),
           ),
-          ChangeNotifierProvider(create: (_) => ProductViewModel()),
+          ChangeNotifierProvider(create: (context) => ProductViewModel()),
         ],
         child: Consumer<Manage>(
           builder: (context, Manage themenotifier, child) {
             return MaterialApp(
+              debugShowCheckedModeBanner: false,
               themeMode: themenotifier.getActualTheme(),
               theme: ThemeData(
                   colorScheme: kColorScheme,
                   useMaterial3: true,
+                  iconTheme: IconThemeData(color: kColorScheme.onPrimary),
                   filledButtonTheme: FilledButtonThemeData(
                       style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.resolveWith((states) {
-                      return kColorScheme.onPrimary;
+                      return kColorScheme.primary;
                     }),
                     textStyle: MaterialStateProperty.resolveWith((states) {
-                      return TextStyle(color: kDarkColorScheme.onPrimary);
+                      return TextStyle(color: kColorScheme.onPrimary);
                     }),
                   )),
+                  floatingActionButtonTheme: FloatingActionButtonThemeData(
+                      backgroundColor: kColorScheme.primary),
                   dialogBackgroundColor: Theme.of(context).colorScheme.surface),
               darkTheme: ThemeData(
                 colorScheme: kDarkColorScheme,
                 useMaterial3: true,
+                iconTheme: IconThemeData(color: kDarkColorScheme.onPrimary),
+                floatingActionButtonTheme: FloatingActionButtonThemeData(
+                    backgroundColor: kDarkColorScheme.primary),
                 filledButtonTheme: FilledButtonThemeData(
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith((states) {
-                          return kDarkColorScheme.primary;
-                        }),
-                        textStyle: MaterialStateProperty.resolveWith((states) =>
-                            TextStyle(color: kDarkColorScheme.onPrimary)))),
+                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                    return kColorScheme.primary;
+                  }),
+                  textStyle: MaterialStateProperty.resolveWith((states) {
+                    return TextStyle(color: kColorScheme.onPrimary);
+                  }),
+                )),
               ),
               home: HomePage(),
             );

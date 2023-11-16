@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_tracker/model/db_model/prodf_model.dart';
 import 'package:food_tracker/model/product_model/product_service.dart';
 import 'package:food_tracker/model/api_status.dart';
 import 'package:food_tracker/model/product_model/product_model.dart';
@@ -10,11 +9,19 @@ class ProductViewModel extends ChangeNotifier {
   ProductModel _productModel =
       ProductModel(code: '', total: 0, offset: 0, items: []);
   UserError _userError = UserError(code: 0, message: '');
-
+  ProdfProvider productsDB = ProdfProvider();
   bool _loading = false;
   bool _showcard = false;
-
+  bool _showalert = false;
   String _upcNumber = '';
+  List<Map<String, dynamic>> _dbProduct = [];
+  dynamic dbString;
+  int _deletionId = 0;
+  int _delIndex = 0;
+
+  ProductViewModel() {
+    getDataBaseProducts();
+  }
 
   get productModel => _productModel;
 
@@ -24,7 +31,11 @@ class ProductViewModel extends ChangeNotifier {
 
   get showcard => _showcard;
 
-  get prodList => getDataBaseProducts();
+  get showalert => _showalert;
+
+  get prodList => _dbProduct;
+
+  get delIndex => _delIndex;
 
   getToJson() {
     return productModelToJson(productModel);
@@ -35,9 +46,9 @@ class ProductViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  getDataBaseProducts() {
-    List<Prodf> dbStrings = ProdfProvider().prodfList;
-    List<Map<String, dynamic>> dbProduct = [];
+  Future<void> getDataBaseProducts() async {
+    _dbProduct = [];
+    dynamic dbStrings = await productsDB.prodfList;
 
     dbStrings.forEach((element) {
       ProductModel product;
@@ -55,10 +66,10 @@ class ProductViewModel extends ChangeNotifier {
         'daystoexpire': daysToExpire
       };
 
-      dbProduct.add(registro);
+      _dbProduct.add(registro);
     });
 
-    return dbProduct;
+    notifyListeners();
   }
 
   String getDateDiff(DateTime expirationDate) {
@@ -70,9 +81,9 @@ class ProductViewModel extends ChangeNotifier {
     daysToExpire = difference.inDays;
 
     if (daysToExpire <= 0) {
-      labelVigencia = 'Expirado';
+      labelVigencia = 'Expired';
     } else {
-      labelVigencia = 'Exp $daysToExpire Dias';
+      labelVigencia = 'Exp $daysToExpire days';
     }
 
     return labelVigencia;
@@ -80,8 +91,9 @@ class ProductViewModel extends ChangeNotifier {
 
   storeProduct(String expirationDate) async {
     try {
-      await ProdfProvider()
-          .addProds('', '', '', '', '', getToJson(), expirationDate);
+      await productsDB.addProds(
+          '', '', '', '', '', getToJson(), expirationDate);
+      getDataBaseProducts();
       setShowCard(false);
       notifyListeners();
     } catch (e) {
@@ -95,18 +107,31 @@ class ProductViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  deleteDbProduct(int id) async {
-    await ProdfProvider().deleteUser(id);
+  deleteDbProduct(int id, int index) async {
+    _showalert = true;
+    _deletionId = id;
+    _delIndex = index;
+    notifyListeners();
+  }
+
+  confirmDeletionDbProduct() async {
+    await productsDB.deleteProds(_deletionId);
+    _deletionId = 0;
+    _showalert = false;
+    getDataBaseProducts();
+    notifyListeners();
+  }
+
+  cancelDeletionDbProduct() async {
+    _deletionId = 0;
+    _showalert = false;
     notifyListeners();
   }
 
   productViewModel() {
     getProducts();
+    notifyListeners();
   }
-
-  /*  transformDBData() {
-    _productModel.toJson();
-  } */
 
   setProductListModel(ProductModel productListModel) {
     _productModel = productListModel;
@@ -144,13 +169,14 @@ class ProductViewModel extends ChangeNotifier {
       UserError userError = UserError(code: 0, message: '');
       setUserError(userError);
       setLoading(false);
+      notifyListeners();
     }
     if (response is Failure) {
       UserError userError =
           UserError(code: response.errorCode, message: response.errorResponse);
       setUserError(userError);
       setLoading(false);
+      notifyListeners();
     }
-    // setLoading(false);
   }
 }

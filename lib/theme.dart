@@ -13,25 +13,25 @@ const kColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFfF05833), //color agregado
   onPrimary: Color(0xFFFFFFFF), //color agregadp
-  primaryContainer: Color(0xFF0e4d6c), //color agregado
-  onPrimaryContainer: Color(0xFFFFFFFF), // agregado
+  primaryContainer: Color(0xFFfffffff), //Color(0xFFe9ddc7),color agregado
+  onPrimaryContainer: Color(0xFfF05833), // agregado
   secondary: Color(0xFFF8FDFF), //color
   onSecondary: Color(0xFF0e4d6c), //color
-  secondaryContainer: Color(0xFFCFE5FF),
+  secondaryContainer: Color(0xFF000000),
   onSecondaryContainer: Color(0xFF001D34),
   tertiary: Color(0xFFC00012),
   onTertiary: Color(0xFFFFFFFF),
   tertiaryContainer: Color(0xFFFFDAD6),
-  onTertiaryContainer: Color(0xFF410002),
+  onTertiaryContainer: Color(0xFFfffffff),
   error: Color(0xFFBA1A1A),
   errorContainer: Color(0xFFFFDAD6),
   onError: Color(0xFFFFFFFF),
   onErrorContainer: Color(0xFF410002),
-  background: Color(0xFFF8FDFF),
+  background: Color(0xFFFfffff),
   onBackground: Color(0xFF001F25),
   surface: Color(0xFFe9ddc7), //agregado
   onSurface: Color(0xFF2c4653), //agregado
-  surfaceVariant: Color(0xFFDBE4E6),
+  surfaceVariant: Color(0xFFffffff),
   onSurfaceVariant: Color(0xFF3F484A),
   outline: Color(0xFF6F797A),
   onInverseSurface: Color(0xFFD6F6FF),

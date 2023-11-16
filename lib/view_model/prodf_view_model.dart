@@ -1,14 +1,13 @@
 import 'package:food_tracker/model/db_model/prodf_model.dart';
 import 'package:food_tracker/model/db_model/db_helper.dart';
-import 'package:flutter/material.dart';
 
-class ProdfProvider extends ChangeNotifier {
-  static List<Prodf> _prodfList = [];
+class ProdfProvider {
+  List<Prodf> _prodfList = [];
 
-  List<Prodf> get prodfList {
-    if (_prodfList.isEmpty) {
-      listProdfs();
-    }
+  get prodfList async {
+    //if (_prodfList.isEmpty) {
+    await listProdfs();
+    //  }
     return _prodfList;
   }
 
@@ -33,13 +32,7 @@ class ProdfProvider extends ChangeNotifier {
     listProdfs();
   }
 
-/*   Future<void> updateUser(Prodf prodf) async{
-    await Databasehelper.instance.update(prodf);
-     
-    listUsers();
-  }  */
-
-  Future<void> deleteUser(int? id) async {
+  Future<void> deleteProds(int? id) async {
     await Databasehelper.instance.delete(id);
 
     listProdfs();
@@ -48,6 +41,6 @@ class ProdfProvider extends ChangeNotifier {
   Future<void> listProdfs() async {
     _prodfList = await Databasehelper.instance.queryAllRows();
 
-    notifyListeners();
+    // notifyListeners();
   }
 }

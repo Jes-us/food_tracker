@@ -2,7 +2,8 @@ import 'package:food_tracker/model/api_status.dart';
 import 'package:food_tracker/model/product_model/product_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:food_tracker/constants.dart';
-import 'package:food_tracker/model/error_service.dart';
+import 'package:food_tracker/model/user_error.dart';
+//import 'package:food_tracker/model/error_service.dart';
 
 class ProdructService {
   String upcNumber;
@@ -35,7 +36,7 @@ class ProdructService {
       if (ksuccess != response.statusCode) {
         return Failure(
             errorCode: response.statusCode,
-            errorResponse: errorServiceModelFromJson(response.body).message);
+            errorResponse: userErrorFromJson(response.body).message);
       }
     } catch (e) {
       return Failure(errorCode: kundifines, errorResponse: e.toString());
