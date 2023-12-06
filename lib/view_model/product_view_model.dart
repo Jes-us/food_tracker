@@ -13,6 +13,7 @@ class ProductViewModel extends ChangeNotifier {
   bool _loading = false;
   bool _showcard = false;
   bool _showalert = false;
+  bool _showSnackbar = false;
   String _upcNumber = '';
   List<Map<String, dynamic>> _dbProduct = [];
   dynamic dbString;
@@ -25,7 +26,10 @@ class ProductViewModel extends ChangeNotifier {
 
   get productModel => _productModel;
 
-  get userError => _userError;
+  get userError {
+    //setSnackbar(false);
+    return _userError;
+  }
 
   get loading => _loading;
 
@@ -33,9 +37,13 @@ class ProductViewModel extends ChangeNotifier {
 
   get showalert => _showalert;
 
-  get prodList => _dbProduct;
+  get prodList {
+    return _dbProduct;
+  }
 
   get delIndex => _delIndex;
+
+  get showSnackbar => _showSnackbar;
 
   getToJson() {
     return productModelToJson(productModel);
@@ -80,7 +88,7 @@ class ProductViewModel extends ChangeNotifier {
     difference = expirationDate.difference(DateTime.now());
     daysToExpire = difference.inDays;
 
-    if (daysToExpire <= 0) {
+    if (daysToExpire < 0) {
       labelVigencia = 'Expired';
     } else {
       labelVigencia = 'Exp $daysToExpire days';
@@ -118,6 +126,10 @@ class ProductViewModel extends ChangeNotifier {
     await productsDB.deleteProds(_deletionId);
     _deletionId = 0;
     _showalert = false;
+
+    UserError userError = UserError(code: 0, message: 'Record deleted');
+    setUserError(userError);
+    setSnackbar(true);
     getDataBaseProducts();
     notifyListeners();
   }
@@ -153,6 +165,11 @@ class ProductViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  setSnackbar(bool showsnack) {
+    _showSnackbar = showsnack;
+    notifyListeners();
+  }
+
   cleanProductViewModel() {
     _productModel = ProductModel(code: '', total: 0, offset: 0, items: []);
     notifyListeners();
@@ -174,8 +191,11 @@ class ProductViewModel extends ChangeNotifier {
     if (response is Failure) {
       UserError userError =
           UserError(code: response.errorCode, message: response.errorResponse);
+
       setUserError(userError);
+      setSnackbar(true);
       setLoading(false);
+
       notifyListeners();
     }
   }

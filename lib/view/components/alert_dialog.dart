@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_tracker/view_model/product_view_model.dart';
 import 'package:provider/provider.dart';
-import 'animated_card.dart';
-import 'card_text.dart';
+import 'custom_snackbar.dart';
+
 import 'product_image.dart';
 
 class CustomAlertDialog extends StatelessWidget {
@@ -112,8 +112,10 @@ class CustomAlertDialog extends StatelessWidget {
                 'Continue',
                 style: TextStyle(color: Colors.lightGreen),
               ),
-              onPressed: () {
-                productViewModel.confirmDeletionDbProduct();
+              onPressed: () async {
+                await productViewModel.confirmDeletionDbProduct();
+                await ScaffoldMessenger.of(context)
+                    .showSnackBar(CustomSnackBar.show(context));
               }),
         ],
       ),

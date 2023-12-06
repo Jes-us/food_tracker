@@ -15,6 +15,13 @@ void main() async {
   runApp(const MyApp());
 }
 
+class SnackBarService {
+  static final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+  static void showSnackBar({required String content}) {
+    scaffoldKey.currentState?.showSnackBar(SnackBar(content: Text(content)));
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -31,6 +38,7 @@ class MyApp extends StatelessWidget {
         child: Consumer<Manage>(
           builder: (context, Manage themenotifier, child) {
             return MaterialApp(
+              scaffoldMessengerKey: SnackBarService.scaffoldKey,
               debugShowCheckedModeBanner: false,
               themeMode: themenotifier.getActualTheme(),
               theme: ThemeData(

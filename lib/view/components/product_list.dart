@@ -4,6 +4,7 @@ import 'package:food_tracker/view/components/card_text.dart';
 import 'package:food_tracker/view/components/product_image.dart';
 import 'package:provider/provider.dart';
 import 'animated_card.dart';
+import 'custom_snackbar.dart';
 
 class ProductList extends StatelessWidget {
   const ProductList({

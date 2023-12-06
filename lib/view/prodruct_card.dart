@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_tracker/view_model/product_view_model.dart';
 import 'package:provider/provider.dart';
+import 'components/custom_snackbar.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key});
@@ -156,34 +157,33 @@ class ProductCard extends StatelessWidget {
                 flex: 3,
                 child: Center(
                   child: ElevatedButton(
-                    style: Theme.of(context).filledButtonTheme.style,
-                    child: Text(
-                      'Guardar',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onPrimary),
-                    ),
-                    onPressed: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        builder: (context, child) {
-                          return Stack(
-                            alignment: Alignment.center,
-                            children: [FittedBox(child: child)],
-                          );
-                        },
-                        context: context,
-                        initialDate: DateTime.now(), //get today's date
-                        firstDate: DateTime(
-                            2000), //DateTime.now() - not to allow to choose before today.
-                        lastDate: DateTime(2101),
-                      );
+                      style: Theme.of(context).filledButtonTheme.style,
+                      child: Text(
+                        'Guardar',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      ),
+                      onPressed: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          builder: (context, child) {
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: [FittedBox(child: child)],
+                            );
+                          },
+                          context: context,
+                          initialDate: DateTime.now(), //get today's date
+                          firstDate: DateTime(
+                              2000), //DateTime.now() - not to allow to choose before today.
+                          lastDate: DateTime(2101),
+                        );
 
-                      if (pickedDate != null) {
-                        String date = '$pickedDate';
-                        await productViewModel.storeProduct(date);
-                      }
-                    },
-                  ),
+                        if (pickedDate != null) {
+                          String date = '$pickedDate';
+                          await productViewModel.storeProduct(date);
+                        }
+                      }),
                 ),
               ),
               const Spacer()

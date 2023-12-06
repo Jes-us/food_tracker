@@ -11,7 +11,7 @@ import 'components/product_list.dart';
 import 'components/animated_icon.dart';
 import 'components/alert_dialog.dart';
 import 'components/animated_transitions.dart';
-//import 'components/custom_snackbar.dart';
+import 'components/custom_snackbar.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -49,15 +49,16 @@ class HomePage extends StatelessWidget {
           ),
 
           body: SizedBox.expand(
-            child: currentWidget(productViewModel),
+            child: currentWidget(context, productViewModel),
           ),
 
           floatingActionButton: Visibility(
             visible: (productViewModel.loading == false &&
                 productViewModel.showcard == false &&
-                productViewModel.showalert == false),
+                productViewModel.showalert == false &&
+                productViewModel.showSnackbar == false),
             child: FloatingActionButton(
-                //backgroundColor: Theme.of(context).colorScheme.primary,
+                heroTag: 'btn1',
                 shape: ContinuousRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
                 child: const Icon(
@@ -67,11 +68,11 @@ class HomePage extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () async {
-                  //scanBarcode = await bCodeReader.scanBarcodeNormal();
+                  scanBarcode = await bCodeReader.scanBarcodeNormal();
                   //scanBarcode = '034000405688';
                   //scanBarcode = '028571000687';
-                  scanBarcode = '070272232027';
-                  //scanBarcode ='7790895067532'; // Producto que no existe y devuelve 0
+                  //scanBarcode = '070272232027';
+                  //scanBarcode = '7790895067532'; // Producto no ez
                   //scanBarcode = '0000000000000';
                   // scanBarcode = '6068946450055'; //-- valor nulo
 
@@ -79,12 +80,9 @@ class HomePage extends StatelessWidget {
                     await productViewModel.setUpcNumber(scanBarcode);
                     await productViewModel.getProducts();
 
-                    if (productViewModel.productModel.items.length == 0) {
-                      // SnackBarService.showSnackBar(content: 'Test' );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        snackBarMessage(context, productViewModel),
-                      );
-                      //CustomSnackBar.show(context);
+                    if (productViewModel.userError.code != 0) {
+                      await ScaffoldMessenger.of(context)
+                          .showSnackBar(CustomSnackBar.show(context));
                     }
                   }
                 }),
@@ -97,52 +95,24 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget currentWidget(ProductViewModel productViewModel) {
+  Widget currentWidget(
+      BuildContext context, ProductViewModel productViewModel) {
     if (productViewModel.loading == false &&
         productViewModel.showcard == false &&
         productViewModel.showalert == false) {
-      return CustomAnimatedTransition(aniteWidget: const ProductList());
+      return CustomAnimatedTransition(aniteWidget: ProductList());
     }
     if (productViewModel.loading == false &&
         productViewModel.showcard == true &&
         productViewModel.showalert == false) {
-      return CustomAnimatedTransition(aniteWidget: const ProductCard());
+      return CustomAnimatedTransition(aniteWidget: ProductCard());
     }
     if (productViewModel.loading == false &&
         productViewModel.showcard == false &&
         productViewModel.showalert == true) {
-      return CustomAnimatedTransition(aniteWidget: const CustomAlertDialog());
+      return CustomAnimatedTransition(aniteWidget: CustomAlertDialog());
     } else {
       return const LoadingApp();
     }
-  }
-
-  SnackBar snackBarMessage(
-      BuildContext context, ProductViewModel productViewModel) {
-    return SnackBar(
-      behavior: SnackBarBehavior.floating,
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      content: Container(
-        padding: const EdgeInsets.all(5),
-        height: MediaQuery.sizeOf(context).height * 0.05,
-        decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSurface,
-            borderRadius: BorderRadius.circular(20)),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Expanded(
-            child: FittedBox(
-              child: Text(
-                productViewModel.userError.message,
-                style: TextStyle(
-                    fontSize: 12, color: Theme.of(context).colorScheme.surface),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          )
-        ]),
-      ),
-    );
   }
 }

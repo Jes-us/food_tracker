@@ -24,7 +24,7 @@ class ProdructService {
 
         if (totalRecords == '0') {
           errorCode = 1;
-          errorMessage = 'Producto no encontrado';
+          errorMessage = 'Product not found';
 
           return Failure(errorCode: errorCode, errorResponse: errorMessage);
         } else {
