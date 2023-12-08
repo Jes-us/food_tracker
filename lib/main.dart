@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'view/homepage.dart';
 import 'package:food_tracker/view_model/product_view_model.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'core/app_export.dart';
+import 'view/login/signup_login_module_screen.dart';
 
 ThemeMode customizedThemeMode = ThemeMode.dark;
 
@@ -74,7 +76,8 @@ class MyApp extends StatelessWidget {
                   }),
                 )),
               ),
-              home: HomePage(),
+              home: SignupLoginModuleScreen(),
+              //home: HomePage(),
             );
           },
         ));
