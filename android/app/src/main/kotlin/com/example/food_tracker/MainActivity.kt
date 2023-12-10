@@ -1,4 +1,4 @@
-package com.example.food_tracker
+package com.mascreativos.foodtracker
 
 import io.flutter.embedding.android.FlutterActivity
 

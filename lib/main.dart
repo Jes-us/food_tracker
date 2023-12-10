@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'theme.dart';
 import 'package:provider/provider.dart';
-import 'view/homepage.dart';
 import 'package:food_tracker/view_model/product_view_model.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'core/app_export.dart';
@@ -77,6 +76,8 @@ class MyApp extends StatelessWidget {
                 )),
               ),
               home: SignupLoginModuleScreen(),
+              initialRoute: AppRoutes.appNavigationScreen,
+              routes: AppRoutes.routes,
               //home: HomePage(),
             );
           },
