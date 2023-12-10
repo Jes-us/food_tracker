@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "917415220610",
+    "project_id": "foodtracker-c0517",
+    "storage_bucket": "foodtracker-c0517.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917415220610:android:588f357f1b780e71c32b9b",
+        "android_client_info": {
+          "package_name": "com.mascreativos.foodtracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwRHSnkSPsC39rsddDWF6W1GeAxiRFCRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
