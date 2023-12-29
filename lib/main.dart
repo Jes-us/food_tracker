@@ -7,11 +7,16 @@ import 'package:food_tracker/view_model/product_view_model.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'core/app_export.dart';
 import 'view/login/signup_login_module_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 ThemeMode customizedThemeMode = ThemeMode.dark;
+String? email;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences userPreferences = await SharedPreferences.getInstance();
+  email = userPreferences.getString("email");
+  await Firebase.initializeApp();
   sqfliteFfiInit();
   runApp(const MyApp());
 }
@@ -26,9 +31,11 @@ class SnackBarService {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  // This widet is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // String? userlogged = getEmaillogged();
+
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -76,7 +83,9 @@ class MyApp extends StatelessWidget {
                 )),
               ),
               home: SignupLoginModuleScreen(),
-              initialRoute: AppRoutes.appNavigationScreen,
+              initialRoute: email == null
+                  ? AppRoutes.emailLoginScreen
+                  : AppRoutes.cupBoardScreen,
               routes: AppRoutes.routes,
               //home: HomePage(),
             );

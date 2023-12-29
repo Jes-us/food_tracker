@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_tracker/core/app_export.dart';
+import 'package:path/path.dart';
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField(
@@ -66,12 +67,12 @@ class CustomTextFormField extends StatelessWidget {
     return alignment != null
         ? Align(
             alignment: alignment ?? Alignment.center,
-            child: _buildTextFormFieldWidget(),
+            child: _buildTextFormFieldWidget(context),
           )
-        : _buildTextFormFieldWidget();
+        : _buildTextFormFieldWidget(context);
   }
 
-  _buildTextFormFieldWidget() {
+  _buildTextFormFieldWidget(BuildContext context) {
     return Container(
       width: width ?? double.maxFinite,
       margin: margin,
@@ -83,13 +84,13 @@ class CustomTextFormField extends StatelessWidget {
         textInputAction: textInputAction,
         keyboardType: textInputType,
         maxLines: maxLines ?? 1,
-        decoration: _buildDecoration(),
+        decoration: _buildDecoration(context),
         validator: validator,
       ),
     );
   }
 
-  _buildDecoration() {
+  _buildDecoration(BuildContext context) {
     return InputDecoration(
       hintText: hintText ?? "",
       hintStyle: _setFontStyle(),
@@ -101,7 +102,7 @@ class CustomTextFormField extends StatelessWidget {
       prefixIconConstraints: prefixConstraints,
       suffixIcon: suffix,
       suffixIconConstraints: suffixConstraints,
-      fillColor: _setFillColor(),
+      fillColor: _setFillColor(context),
       filled: _setFilled(),
       isDense: true,
       contentPadding: _setPadding(),
@@ -148,10 +149,10 @@ class CustomTextFormField extends StatelessWidget {
     }
   }
 
-  _setFillColor() {
+  _setFillColor(BuildContext context) {
     switch (variant) {
       default:
-        return ColorConstant.whiteA700;
+        return Theme.of(context).colorScheme.onSecondary;
     }
   }
 
@@ -159,8 +160,9 @@ class CustomTextFormField extends StatelessWidget {
     switch (variant) {
       case TextFormFieldVariant.None:
         return false;
+        ;
       default:
-        return true;
+        return false;
     }
   }
 

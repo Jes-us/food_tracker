@@ -1,5 +1,5 @@
 class ImageConstant {
-  static String imgSettings24x24 = 'assets/images/img_settings_24x24.svg';
+  static String imgSettings24x24 = 'assets/images/foodtracker.png';
 
   static String imgVectorBlueA70034x360 =
       'assets/images/img_vector_blue_a700_34x360.svg';

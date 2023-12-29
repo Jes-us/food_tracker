@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 
 const Color _colorSeed = Color.fromARGB(215, 252, 137, 7);
 
-/* ColorScheme  =
-    fromSeed(seedColor: _colorSeed, brightness: Brightness.light);
-
-ColorScheme kDarkColorScheme =
-    fromSeed(seedColor: _colorSeed, brightness: Brightness.dark);
- */
-
 const kColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFfF05833), //color agregado

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_tracker/core/app_export.dart';
+import 'package:path/path.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton(
@@ -45,17 +46,17 @@ class CustomButton extends StatelessWidget {
     return alignment != null
         ? Align(
             alignment: alignment!,
-            child: _buildButtonWidget(),
+            child: _buildButtonWidget(context),
           )
-        : _buildButtonWidget();
+        : _buildButtonWidget(context);
   }
 
-  _buildButtonWidget() {
+  _buildButtonWidget(BuildContext context) {
     return Padding(
       padding: margin ?? EdgeInsets.zero,
       child: TextButton(
         onPressed: onTap,
-        style: _buildTextButtonStyle(),
+        style: _buildTextButtonStyle(context),
         child: _buildButtonWithOrWithoutIcon(),
       ),
     );
@@ -84,14 +85,14 @@ class CustomButton extends StatelessWidget {
     }
   }
 
-  _buildTextButtonStyle() {
+  _buildTextButtonStyle(BuildContext context) {
     return TextButton.styleFrom(
       fixedSize: Size(
         width ?? double.maxFinite,
         height ?? getVerticalSize(40),
       ),
       padding: _setPadding(),
-      backgroundColor: _setColor(),
+      backgroundColor: _setColor(context),
       side: _setTextButtonBorder(),
       shape: RoundedRectangleBorder(
         borderRadius: _setBorderRadius(),
@@ -114,12 +115,12 @@ class CustomButton extends StatelessWidget {
     }
   }
 
-  _setColor() {
+  _setColor(BuildContext context) {
     switch (variant) {
       case ButtonVariant.OutlineBlueA700:
         return null;
       default:
-        return ColorConstant.blueA700;
+        return Theme.of(context).colorScheme.primary;
     }
   }
 

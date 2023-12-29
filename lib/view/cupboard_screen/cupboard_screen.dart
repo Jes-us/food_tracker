@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_tracker/main.dart';
 import 'package:food_tracker/view/prodruct_card.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +11,7 @@ import '../components/animated_icon.dart';
 import '../components/alert_dialog.dart';
 import '../components/animated_transitions.dart';
 import '../components/custom_snackbar.dart';
+import 'package:food_tracker/core/app_export.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -47,7 +47,57 @@ class HomePage extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onPrimaryContainer),
             ),
           ),
-
+          drawer: Drawer(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Spacer(
+                flex: 2,
+              ),
+              Flexible(
+                flex: 2,
+                child: CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.amber,
+                  child: CustomImageView(
+                    imagePath: ImageConstant.imgSettings24x24,
+                    height: getSize(
+                      150,
+                    ),
+                    width: getSize(
+                      150,
+                    ),
+                    radius: BorderRadius.circular(
+                      getHorizontalSize(
+                        75,
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                  ),
+                ),
+              ),
+              Text('Jesus Rodriguez'),
+              Spacer(flex: 1),
+              TextButton.icon(
+                onPressed: () async {
+                  SharedPreferences userPreferences =
+                      await SharedPreferences.getInstance();
+                  userPreferences.remove("email");
+                  Navigator.pushNamed(context, AppRoutes.emailLoginScreen);
+                },
+                icon: Icon(
+                  Icons.logout_rounded,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+                label: Text('Logout',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSecondary)),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+            ]),
+          ),
           body: SizedBox.expand(
             child: currentWidget(context, productViewModel),
           ),

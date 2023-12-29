@@ -24,7 +24,7 @@ class AppbarTitle extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.left,
           style: AppStyle.txtGilroySemiBold24.copyWith(
-            color: ColorConstant.blueGray900,
+            color: Theme.of(context).colorScheme.onBackground,
           ),
         ),
       ),

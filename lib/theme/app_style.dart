@@ -3,7 +3,7 @@ import 'package:food_tracker/core/app_export.dart';
 
 class AppStyle {
   static TextStyle txtGilroySemiBold24 = TextStyle(
-    color: ColorConstant.blueGray900,
+    color: ColorConstant.black900,
     fontSize: getFontSize(
       24,
     ),
