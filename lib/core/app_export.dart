@@ -18,3 +18,7 @@ export 'package:food_tracker/widgets/custom_button.dart';
 export 'package:food_tracker/widgets/custom_text_form_field.dart';
 
 export 'package:shared_preferences/shared_preferences.dart';
+
+//view models
+export 'package:food_tracker/view_model/product_view_model.dart';
+export 'package:food_tracker/view_model/user_view_model.dart';

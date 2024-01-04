@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:food_tracker/model/user_model/firebase_auth.dart';
 import 'theme.dart';
 import 'package:provider/provider.dart';
-import 'package:food_tracker/view_model/product_view_model.dart';
+
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'core/app_export.dart';
 import 'view/login/signup_login_module_screen.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
             create: (context) => Manage(customizedThemeMode),
           ),
           ChangeNotifierProvider(create: (context) => ProductViewModel()),
+          ChangeNotifierProvider(create: (context) => UserViewModel()),
         ],
         child: Consumer<Manage>(
           builder: (context, Manage themenotifier, child) {

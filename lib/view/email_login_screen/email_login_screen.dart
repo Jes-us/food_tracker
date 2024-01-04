@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:food_tracker/core/app_export.dart';
 import 'package:food_tracker/main.dart';
 
@@ -12,6 +12,8 @@ class EmailLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserViewModel userViewModel = context.watch<UserViewModel>();
+
     return Consumer<Manage>(builder: (context, Manage themeNotifier, child) {
       return SafeArea(
           child: Scaffold(
@@ -94,31 +96,22 @@ class EmailLoginScreen extends StatelessWidget {
                                 text: "Sign in",
                                 margin: getMargin(top: 25, bottom: 5),
                                 onTap: () async {
-                                  FirebaseAuth auth = FirebaseAuth.instance;
-
                                   try {
-                                    UserCredential user =
-                                        await auth.signInWithEmailAndPassword(
-                                            email: group10198Controller.text,
-                                            password:
-                                                group10198OneController.text);
+                                    await userViewModel.sigmImWithEmailPassword(
+                                        group10198Controller.text,
+                                        group10198OneController.text);
 
-                                    SharedPreferences userPreferences =
-                                        await SharedPreferences.getInstance();
-                                    userPreferences.setString(
-                                        "email", group10198Controller.text);
+                                    if (userViewModel.userLogged) {
+                                      SharedPreferences userPreferences =
+                                          await SharedPreferences.getInstance();
+                                      userPreferences.setString(
+                                          "email", group10198Controller.text);
 
-                                    Navigator.pushNamed(
-                                        context, AppRoutes.cupBoardScreen);
-                                  } on FirebaseAuthException catch (e) {
-                                    if (e.code == 'user-not-found') {
-                                      print('usuario no existe');
-                                    } else if (e.code == 'wrong-password') {
-                                      print('Password incorrecto');
-                                    } else {
-                                      String error = e.code;
-                                      print('error $error');
+                                      Navigator.pushNamed(
+                                          context, AppRoutes.cupBoardScreen);
                                     }
+                                  } catch (e) {
+                                    print('error $e');
                                   }
                                 }),
                             CustomButton(
