@@ -6,8 +6,6 @@ import 'package:food_tracker/view/cupboard_screen/cupboard_screen.dart';
 //import 'package:foodtracker/presentation/offline_work_screen/offline_work_screen.dart';
 //import 'package:foodtracker/presentation/user_account_screen/user_account_screen.dart';
 import 'package:food_tracker/view/login/signup_login_module_screen.dart';
-import 'package:food_tracker/view/splash_screen/splash_screen.dart';
-import 'package:food_tracker/view/app_navigation_screen/app_navigation_screen.dart';
 
 class AppRoutes {
   static const String accountCreationScreen = '/account_creation_screen';
@@ -35,7 +33,5 @@ class AppRoutes {
     //offlineWorkScreen: (context) => OfflineWorkScreen(),
     // userAccountScreen: (context) => UserAccountScreen(),
     signupLoginModuleScreen: (context) => SignupLoginModuleScreen(),
-    splashScreen: (context) => SplashScreen(),
-    appNavigationScreen: (context) => AppNavigationScreen()
   };
 }

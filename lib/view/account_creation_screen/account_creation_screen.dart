@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_tracker/core/app_export.dart';
-import 'package:food_tracker/widgets/custom_icon_button.dart';
+import 'package:food_tracker/view/widgets/custom_icon_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AccountCreationScreen extends StatelessWidget {

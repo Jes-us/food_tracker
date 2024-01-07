@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:food_tracker/core/app_export.dart';
 import 'package:food_tracker/main.dart';
 
+import '../components/custom_snackbar.dart';
+
 class EmailLoginScreen extends StatelessWidget {
   TextEditingController group10198Controller = TextEditingController();
 
@@ -55,7 +57,10 @@ class EmailLoginScreen extends StatelessWidget {
                             Text("Email",
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
-                                style: AppStyle.txtGilroyMedium16),
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground)),
                             CustomTextFormField(
                                 focusNode: FocusNode(),
                                 controller: group10198Controller,
@@ -67,12 +72,15 @@ class EmailLoginScreen extends StatelessWidget {
                                 child: Text("Password",
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
-                                    style: AppStyle.txtGilroyMedium16)),
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground))),
                             CustomTextFormField(
                                 focusNode: FocusNode(),
                                 controller: group10198OneController,
                                 hintText: "Enter Password",
-                                margin: getMargin(top: 7),
+                                margin: getMargin(top: 8),
                                 padding: TextFormFieldPadding.PaddingT12,
                                 textInputAction: TextInputAction.done,
                                 textInputType: TextInputType.visiblePassword,
@@ -90,7 +98,10 @@ class EmailLoginScreen extends StatelessWidget {
                                     child: Text("Forgot Password?",
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
-                                        style: AppStyle.txtGilroyMedium14))),
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground)))),
                             CustomButton(
                                 height: getVerticalSize(50),
                                 text: "Sign in",
@@ -111,7 +122,9 @@ class EmailLoginScreen extends StatelessWidget {
                                           context, AppRoutes.cupBoardScreen);
                                     }
                                   } catch (e) {
-                                    print('error $e');
+                                    await ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                            CustomSnackBar.show(context));
                                   }
                                 }),
                             CustomButton(

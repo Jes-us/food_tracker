@@ -122,7 +122,7 @@ class HomePage extends StatelessWidget {
                   //scanBarcode = '034000405688';
                   //scanBarcode = '028571000687';
                   //scanBarcode = '070272232027';
-                  //scanBarcode = '7790895067532'; // Producto no ez
+                  //scanBarcode = '7790895067532'; // Producto no
                   //scanBarcode = '0000000000000';
                   // scanBarcode = '6068946450055'; //-- valor nulo
 

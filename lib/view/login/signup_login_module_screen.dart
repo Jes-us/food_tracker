@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_tracker/core/app_export.dart';
-import 'package:food_tracker/widgets/app_bar/appbar_image.dart';
-import 'package:food_tracker/widgets/app_bar/appbar_title.dart';
-import 'package:food_tracker/widgets/app_bar/custom_app_bar.dart';
-import 'package:food_tracker/widgets/custom_button.dart';
-import 'package:food_tracker/widgets/custom_checkbox.dart';
-import 'package:food_tracker/widgets/custom_text_form_field.dart';
+import 'package:food_tracker/view/widgets/app_bar/appbar_image.dart';
+import 'package:food_tracker/view/widgets/app_bar/appbar_title.dart';
+import 'package:food_tracker/view/widgets/app_bar/custom_app_bar.dart';
+import 'package:food_tracker/view/widgets/custom_button.dart';
+import 'package:food_tracker/view/widgets/custom_checkbox.dart';
+import 'package:food_tracker/view/widgets/custom_text_form_field.dart';
 
 class SignupLoginModuleScreen extends StatelessWidget {
   TextEditingController group10198Controller = TextEditingController();
